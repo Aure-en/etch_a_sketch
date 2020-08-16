@@ -1,0 +1,268 @@
+/* Reset */
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* General */
+
+* {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: justify;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    background: url('images/background.jpg');
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    color: rgb(27, 27, 27);
+}
+
+.page {
+    display: flex;
+}
+
+strong {
+    font-weight: bold;
+    color: rgb(107, 107, 107);
+}
+
+em {
+    font-style: italic;
+    color: rgb(114, 114, 114);
+}
+
+/* Nav */
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+    padding-top: 3em;
+}
+
+.menu__mode,
+.menu__color,
+.menu__size {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    width: 13em;
+    height: 11em;
+    border: 1px solid black;
+    display: flex;
+    font-size: 0.9em;
+    padding: 1.5em 2em;
+    background-color: rgb(248, 248, 248);
+}
+
+.menu__mode_title,
+.menu__color_title,
+.menu__size_title {
+    position: absolute;
+    top: -0.5em;
+    width: 5em;
+    background: url('images/background.jpg');
+    text-align: center;
+    font-family: 'Economica', Georgia, 'Times New Roman', Times, serif;
+    font-size: 1.5em;
+}
+
+.menu__mode li,
+.menu__size p {
+    margin-bottom: 0.5em;
+}
+
+.menu__size_input {
+    width: 3.5em;
+}
+
+.menu__reset {
+    background-color: rgb(248, 248, 248);
+    border-radius: 0;
+    border: 1px solid rgb(63, 63, 63);
+    font-size: 1em;
+    font-family: 'Economica', Georgia, 'Times New Roman', Times, serif;
+    padding: 0.5em 1em;
+}
+
+.menu__color_input {
+    outline: none;
+    border: 1px solid black;
+}
+
+/* Main */
+
+main {
+    margin-left: 3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 40vw;
+    height: 40vw;
+    min-width: 40em;
+    min-height: 40em;
+    background-color: #000;
+    border-radius: 5px;
+}
+
+.main__title {
+    position: absolute;
+    font-family: 'Economica', Georgia, 'Times New Roman', Times, serif;
+    top: 0.75em;
+    font-size: 2.5em;
+    color: #fff;
+    z-index: 1;
+    text-align: center;
+}
+
+.main__etch-a-sketch {
+    width: 30vw;
+    height: 30vw;
+    min-width: 30em;
+    min-height: 30em;
+    background-color: #fff;
+    display: grid;
+    border-collapse: collapse;
+    border-top: 1px solid rgb(182, 182, 182);
+    border-right: 1px solid rgb(182, 182, 182);
+    
+}
+
+.main__etch-a-sketch li {
+    border-left: 1px solid rgb(182, 182, 182);
+    border-bottom: 1px solid rgb(182, 182, 182);
+}
+
+.main__left-knob,
+.main__right-knob {
+    background-color: #fff;
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 7em;
+    height: 7em;
+    position: absolute;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    align-items: center;
+    justify-items: center;
+}
+
+.main__left-knob {
+    left: 0;
+}
+
+.main__right-knob {
+    right: 0;
+    padding: 0.7em;
+}
+
+.main__left_angle_up,
+.main__left_angle_down,
+.main__left_angle_left,
+.main__left_angle_right,
+.main__right_angle_up_left,
+.main__right_angle_up_right,
+.main__right_angle_down_left,
+.main__right_angle_down_right {
+    font-size: 2em;
+}
+
+.main__left_angle_up {
+    grid-column: 2;
+}
+
+.main__left_angle_down {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+.main__left_angle_left {
+    grid-row: 2;
+}
+
+.main__left_angle_right {
+    grid-row: 2;
+    grid-column: 3;
+}
+
+.main__right_angle_up_left {
+    grid-row: 1;
+    grid-column: 1;
+    transform: rotate(-45deg);
+}
+
+.main__right_angle_up_right {
+    grid-row: 1;
+    grid-column: 3;
+    transform: rotate(45deg);
+}
+
+.main__right_angle_down_left {
+    grid-row: 3;
+    grid-column: 1;
+    transform: rotate(45deg);
+}
+
+.main__right_angle_down_right {
+    grid-row: 3;
+    grid-column: 3;
+    transform: rotate(-45deg);
+}
