@@ -317,7 +317,7 @@ main {
 
     /*Phones (General)*/
 
-@media all and (max-device-height: 640px) {
+@media all and (max-device-height: 750px) {
 
 
         /*General*/
@@ -362,6 +362,8 @@ main {
 
 }
 
+    /*Phones (Landscape)*/
+
 @media all and (max-device-height: 640px) and (orientation: landscape) {
     .main__left-knob {
         top: 2em;
@@ -372,6 +374,14 @@ main {
     .main__right-knob {
         bottom: 2em;
         right: -6em;
+    }
+
+    .menu__mode,
+    .menu__color,
+    .menu__size {
+        width: 18em;
+        margin-left: 3em;
+
     }
 }
 
