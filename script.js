@@ -12,6 +12,8 @@ let size = 16;
 
 /*Functions*/
 
+    //Setup related functions
+
 function createGrid(size) {
 
     for (let i = 0 ; i < size**2 ; i++) {
@@ -19,15 +21,46 @@ function createGrid(size) {
     }
 
     etchASketch.style.gridTemplate = `repeat(${size}, 1fr) / repeat(${size}, 1fr)`
-    current = etchASketch.firstElementChild;
 
 }
+
+function reset() {
+    for (let li of etchASketch.querySelectorAll('li')) {
+        li.style.backgroundColor='';
+    }
+    current = null;
+}
+
+function changeSize(event) {
+
+    reset();
+
+    size = event.target.value;
+    if (size > 50) size = 50;
+    if (size < 1) size = 1;
+    etchASketch.style.gridTemplate = `repeat(${size}, 1fr) / repeat(${size}, 1fr)`;
+
+    while (etchASketch.querySelectorAll('li').length > size**2) {
+        etchASketch.lastElementChild.remove();
+    }
+
+    while (etchASketch.querySelectorAll('li').length < size**2) {
+        etchASketch.innerHTML+=`<li></li>`;
+    }
+
+}
+
+function changeColor(event) {
+    color = colorInput.value;
+}
+
+    //Painting related functions
 
 function paintModern(event) {
 
     if (event.target.tagName != "LI") return;
     event.target.style.backgroundColor = color;
-    etchASketch.addEventListener("mousemove", mousePaint);
+    etchASketch.addEventListener("pointermove", mousePaint);
 
 }
 
@@ -36,7 +69,8 @@ function mousePaint(event) {
     if (event.target.tagName != "LI") return;
     event.preventDefault();
     event.target.style.backgroundColor = color;
-    document.addEventListener("mouseup", () => etchASketch.removeEventListener("mousemove", mousePaint));
+    current = event.target;
+    document.addEventListener("pointerup", () => etchASketch.removeEventListener("pointermove", mousePaint));
 
 }
 
@@ -64,80 +98,80 @@ function paintTraditional() {
     
 }
 
+function defineCurrent() {
+    if (!current) {
+        current = etchASketch.querySelectorAll('li')[etchASketch.querySelectorAll('li').length - size];
+        current.style.backgroundColor = color;
+    }
+}
+
+        //Paint the next div in that direction, unless we reached a border.
 function paintLeft() {
-    if (!current.previousElementSibling) return;
+    if (!current.previousElementSibling || Array.from(current.parentNode.children).indexOf(current) % size == 0) return;
     current = current.previousElementSibling;
     current.style.backgroundColor = color;
 }
 
 function paintRight() {
-    if (!current.nextElementSibling) return;
+    if (!current.nextElementSibling || (Array.from(current.parentNode.children).indexOf(current) + 1) % size == 0) return;
     current = current.nextElementSibling;
     current.style.backgroundColor = color;
 }
 
 function paintUp() {
-    if (!etchASketch.querySelectorAll('li')[Array.from(current.parentNode.children).indexOf(current) - size]) return;
+    if (!etchASketch.querySelectorAll('li')[Array.from(current.parentNode.children).indexOf(current) - size]
+    || Array.from(current.parentNode.children).indexOf(current) < size) { 
+        return;
+    }
     current = etchASketch.querySelectorAll('li')[Array.from(current.parentNode.children).indexOf(current) - size];
     current.style.backgroundColor = color;
 }
 
 function paintDown() {
-    if (!etchASketch.querySelectorAll('li')[Array.from(current.parentNode.children).indexOf(current) + size]) return;
+    if (!etchASketch.querySelectorAll('li')[Array.from(current.parentNode.children).indexOf(current) + size]
+    || Array.from(current.parentNode.children).indexOf(current) >= etchASketch.querySelectorAll('li').length - size) {
+        return;
+    }
     current = etchASketch.querySelectorAll('li')[Array.from(current.parentNode.children).indexOf(current) + size];
     current.style.backgroundColor = color;
 }
 
 function paintUpLeft() {
-    if (!etchASketch.querySelectorAll('li')[Array.from(current.parentNode.children).indexOf(current) - size - 1]) return;
+    if (!etchASketch.querySelectorAll('li')[Array.from(current.parentNode.children).indexOf(current) - size - 1]
+    || Array.from(current.parentNode.children).indexOf(current) % size == 0
+    || Array.from(current.parentNode.children).indexOf(current) < size) {
+        return;
+    }
     current = etchASketch.querySelectorAll('li')[Array.from(current.parentNode.children).indexOf(current) - size - 1];
     current.style.backgroundColor = color;
 }
 
 function paintUpRight() {
-    if (!etchASketch.querySelectorAll('li')[Array.from(current.parentNode.children).indexOf(current) - size + 1]) return;
+    if (!etchASketch.querySelectorAll('li')[Array.from(current.parentNode.children).indexOf(current) - size + 1]
+    || Array.from(current.parentNode.children).indexOf(current) < size
+    || (Array.from(current.parentNode.children).indexOf(current) + 1) % size == 0) {
+        return;
+    }
     current = etchASketch.querySelectorAll('li')[Array.from(current.parentNode.children).indexOf(current) - size + 1];
     current.style.backgroundColor = color;
 }
 
 function paintDownLeft() {
-    if (!etchASketch.querySelectorAll('li')[Array.from(current.parentNode.children).indexOf(current) + size - 1]) return;
+    if (!etchASketch.querySelectorAll('li')[Array.from(current.parentNode.children).indexOf(current) + size - 1]
+    || Array.from(current.parentNode.children).indexOf(current) >= etchASketch.querySelectorAll('li').length - size
+    || Array.from(current.parentNode.children).indexOf(current) % size == 0) {
+        return;
+    }
     current = etchASketch.querySelectorAll('li')[Array.from(current.parentNode.children).indexOf(current) + size - 1];
     current.style.backgroundColor = color;
 }
 
 function paintDownRight() {
-    if (!etchASketch.querySelectorAll('li')[Array.from(current.parentNode.children).indexOf(current) + size + 1]) return;
+    if (!etchASketch.querySelectorAll('li')[Array.from(current.parentNode.children).indexOf(current) + size + 1]
+    || Array.from(current.parentNode.children).indexOf(current) >= etchASketch.querySelectorAll('li').length - size
+    || (Array.from(current.parentNode.children).indexOf(current) + 1) % size == 0) return;
     current = etchASketch.querySelectorAll('li')[Array.from(current.parentNode.children).indexOf(current) + size + 1];
     current.style.backgroundColor = color;
-}
-
-function reset() {
-    for (let li of etchASketch.querySelectorAll('li')) {
-        li.style.backgroundColor='#fff';
-    }
-}
-
-function changeSize(event) {
-
-    reset();
-
-    if (event.target.value > 50) event.target.value = 50;
-    if (event.target.value < 1) event.target.value = 1;
-    etchASketch.style.gridTemplate = `repeat(${event.target.value}, 1fr) / repeat(${event.target.value}, 1fr)`;
-
-    while (etchASketch.querySelectorAll('li').length > event.target.value**2) {
-        etchASketch.lastElementChild.remove();
-    }
-
-    while (etchASketch.querySelectorAll('li').length < event.target.value**2) {
-        etchASketch.innerHTML+=`<li></li>`;
-    }
-
-}
-
-function changeColor(event) {
-    color = colorInput.value;
 }
 
 /*Event Listeners*/
@@ -146,7 +180,10 @@ etchASketch.addEventListener("mousedown", paintModern);
 resetButton.addEventListener("click", reset);
 sizeInput.addEventListener("change", changeSize);
 colorInput.addEventListener("change", changeColor);
-
-paintTraditional();
+document.querySelector(".main__left-knob").addEventListener("click", function(event) {
+    if (event.target.tagName != 'I') return;
+    defineCurrent();
+})
 
 createGrid(size);
+paintTraditional();

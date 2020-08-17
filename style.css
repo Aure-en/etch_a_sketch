@@ -120,6 +120,18 @@ em {
     text-align: center;
     font-family: 'Economica', Georgia, 'Times New Roman', Times, serif;
     font-size: 1.5em;
+    color: rgb(63, 63, 63);
+}
+
+.menu__mode_title:hover,
+.menu__color_title:hover,
+.menu__size_title:hover {
+    animation: title-shadow 0.7s;
+}
+
+@keyframes title-shadow {
+    50% { text-shadow: 1.5px 0 0 rgb(190, 190, 190), -1.5px 0 0 rgb(190, 190, 190)}
+    100% { text-shadow : none; }
 }
 
 .menu__mode li,
@@ -138,12 +150,19 @@ em {
     font-size: 1em;
     font-family: 'Economica', Georgia, 'Times New Roman', Times, serif;
     padding: 0.5em 1em;
+    transition: all 0.15s linear;
+    cursor: pointer;
+}
+
+.menu__reset:hover {
+    letter-spacing: 2px;
 }
 
 .menu__color_input {
     outline: none;
     border: 1px solid black;
 }
+
 
 /* Main */
 
