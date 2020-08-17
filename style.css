@@ -92,6 +92,7 @@ em {
     align-items: center;
     height: 100%;
     padding-top: 3em;
+    font-size: 0.9em;
 }
 
 .menu__mode,
@@ -105,7 +106,7 @@ em {
     height: 11em;
     border: 1px solid black;
     display: flex;
-    font-size: 0.9em;
+    
     padding: 1.5em 2em;
     background-color: rgb(248, 248, 248);
 }
@@ -284,4 +285,128 @@ main {
     grid-row: 3;
     grid-column: 3;
     transform: rotate(-45deg);
+}
+
+/*Media Queries*/
+
+    /*Smaller screens and tablets*/
+
+@media all and (max-device-width: 900px) {
+
+    .page {
+        width: 95%;
+        height: 95%;
+    }
+
+    main {
+        min-width: 30em;
+        min-height: 30em;
+        align-self: center;
+    }
+
+    .main__etch-a-sketch {
+        min-width: 25em;
+        min-height: 25em;
+    }
+
+    .main__title {
+        display: none;
+    }
+
+}
+
+    /*Phones (General)*/
+
+@media all and (max-device-height: 640px) {
+
+
+        /*General*/
+    .page {
+        justify-content: flex-start;
+    }
+
+        /*Nav*/
+    .menu {
+        font-size: 0.5em;
+    }
+
+    .main__left_angle_up,
+    .main__left_angle_down,
+    .main__left_angle_left,
+    .main__left_angle_right,
+    .main__right_angle_up_left,
+    .main__right_angle_up_right,
+    .main__right_angle_down_left,
+    .main__right_angle_down_right {
+    font-size: 1em;
+    }
+
+
+        /*Main*/
+    main {
+        min-width: 15em;
+        min-height: 15em;
+
+    }
+
+    .main__etch-a-sketch {
+        min-width: 13em;
+        min-height: 13em;
+    }
+
+    .main__left-knob,
+    .main__right-knob {
+        width: 5em;
+        height: 5em;
+    }
+
+}
+
+@media all and (max-device-height: 640px) and (orientation: landscape) {
+    .main__left-knob {
+        top: 2em;
+        right: -6em;
+        left: initial;
+    }
+
+    .main__right-knob {
+        bottom: 2em;
+        right: -6em;
+    }
+}
+
+    /*Phones (Portrait)*/
+
+@media all and (max-device-width: 425px) {
+
+        /*General*/
+
+    .page {
+        flex-direction: column-reverse;
+    }
+
+        /*Nav*/
+    
+    .menu {
+        flex-direction: row;
+    }
+
+    .menu__reset {
+        transform: rotate(-90deg);
+    }
+
+        /*Main*/
+
+    main {
+        min-width: 20em;
+        min-height: 20em;
+        margin-left: 0;
+    }
+
+    .main__etch-a-sketch {
+        min-width: 18em;
+        min-height: 18em;
+    }
+
+
 }

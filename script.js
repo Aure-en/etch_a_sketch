@@ -5,9 +5,19 @@ let sizeInput = document.querySelector(".menu__size_input");
 let colorInput = document.querySelector(".menu__color_input");
 let resetButton = document.querySelector(".menu__reset");
 let leftKnob = document.querySelector(".main__left-knob");
+
 let current;
 let color = "#000";
 let size = 16;
+let previousKey;
+let currentKey;
+
+    //Keyboard Controls
+let keys = new Map();
+keys.set('ArrowLeft', false)
+    .set('ArrowRight', false)
+    .set('ArrowUp', false)
+    .set('ArrowDown', false);
 
 
 /*Functions*/
@@ -105,6 +115,66 @@ function defineCurrent() {
     }
 }
 
+function checkKeys() {
+    if (keys.get('ArrowUp') && keys.get('ArrowLeft')) {
+        paintUpLeft();
+        return;
+    }
+
+    if (keys.get('ArrowUp') && keys.get('ArrowRight')) {
+        paintUpRight();
+        return;
+    }
+
+    if (keys.get('ArrowDown') && keys.get('ArrowLeft')) {
+        paintDownLeft();
+        return;
+    }
+
+    if (keys.get('ArrowDown') && keys.get('ArrowRight')) {
+        paintDownRight();
+        return;
+    }
+
+    if (keys.get('ArrowLeft')) {
+        paintLeft();
+        return;
+    }
+
+    if (keys.get('ArrowRight')) {
+        paintRight();
+        return;
+    }
+
+    if (keys.get('ArrowUp')) {
+        paintUp();
+        return;
+    }
+
+    if (keys.get('ArrowDown')) {
+        paintDown();
+        return;
+    }
+
+}
+
+function trackKeys(event) {
+    if (event.type == 'keydown' && event.repeat == false) {
+        if (event.code != 'ArrowUp' && event.code != 'ArrowDown' && event.code != 'ArrowLeft' && event.code != 'ArrowRight') return;
+        keys.set(event.code, true);
+        checkKeys();
+    }
+
+    if (event.type == 'keyup') {
+        keys.set(event.code, false);
+    }
+}
+
+function ignoreKeys(previousKey, currentKey) {
+    if (currentKey - previousKey < 20) return true
+    return false;
+}
+
         //Paint the next div in that direction, unless we reached a border.
 function paintLeft() {
     if (!current.previousElementSibling || Array.from(current.parentNode.children).indexOf(current) % size == 0) return;
@@ -184,6 +254,10 @@ document.querySelector(".main__left-knob").addEventListener("click", function(ev
     if (event.target.tagName != 'I') return;
     defineCurrent();
 })
+
+window.addEventListener("keydown", defineCurrent)
+window.addEventListener("keydown", trackKeys);
+window.addEventListener("keyup", trackKeys);
 
 createGrid(size);
 paintTraditional();
