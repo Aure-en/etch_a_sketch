@@ -310,7 +310,8 @@ main {
     }
 
     .main__title {
-        display: none;
+        color: #000;
+        top: -2em;
     }
 
 }
@@ -360,6 +361,12 @@ main {
         height: 5em;
     }
 
+    .main__title {
+        color: #000;
+        top: -1.5em;
+        font-size: 1.5em;
+    }
+
 }
 
     /*Phones (Landscape)*/
@@ -381,7 +388,6 @@ main {
     .menu__size {
         width: 18em;
         margin-left: 3em;
-
     }
 }
 
@@ -393,6 +399,7 @@ main {
 
     .page {
         flex-direction: column-reverse;
+        height: auto;
     }
 
         /*Nav*/
@@ -403,6 +410,13 @@ main {
 
     .menu__reset {
         transform: rotate(-90deg);
+    }
+
+    .menu__mode,
+    .menu__color,
+    .menu__size {
+        height: 15em;
+        margin-left: 3em;
     }
 
         /*Main*/

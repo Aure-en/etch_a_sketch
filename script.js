@@ -71,6 +71,7 @@ function paintModern(event) {
     if (event.target.tagName != "LI") return;
     event.target.style.backgroundColor = color;
     etchASketch.addEventListener("pointermove", mousePaint);
+    etchASketch.addEventListener("touchmove", mousePaint);
 
 }
 
@@ -81,6 +82,7 @@ function mousePaint(event) {
     event.target.style.backgroundColor = color;
     current = event.target;
     document.addEventListener("pointerup", () => etchASketch.removeEventListener("pointermove", mousePaint));
+    document.addEventListener("touchend", () => etchASketch.removeEventListener("touchmove", mousePaint));
 
 }
 
@@ -247,6 +249,7 @@ function paintDownRight() {
 /*Event Listeners*/
 
 etchASketch.addEventListener("mousedown", paintModern);
+etchASketch.addEventListener("touchstart", paintModern)
 resetButton.addEventListener("click", reset);
 sizeInput.addEventListener("change", changeSize);
 colorInput.addEventListener("change", changeColor);
